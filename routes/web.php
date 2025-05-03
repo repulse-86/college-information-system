@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\InstructorController;
 use Illuminate\Support\Facades\Route;
 
@@ -8,3 +9,4 @@ Route::get('/', function () {
 });
 
 Route::resource('/instructors', InstructorController::class)->only(['index', 'store']);
+Route::resource('/departments', DepartmentController::class)->only(['index', 'store']);

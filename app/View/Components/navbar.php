@@ -16,6 +16,7 @@ class Navbar extends Component
     {
         $this->links = [
             ['route' => 'instructors.index', 'label' => 'Instructors'],
+            ['route' => 'departments.index', 'label' => 'Departments'],
         ];
     }
 
