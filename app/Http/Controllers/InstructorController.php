@@ -15,7 +15,9 @@ class InstructorController extends Controller
      */
     public function index(): View
     {
-        return view('instructor');
+        $instructors = Instructor::all()->toArray();
+
+        return view('instructor', compact('instructors'));
     }
 
     /**
