@@ -35,5 +35,7 @@
                 </div>
             </form>
         </div>
+
+        <x-dynamic-table :columns="['name', 'office']" :rows="$departments" />
     </div>
 @endsection
