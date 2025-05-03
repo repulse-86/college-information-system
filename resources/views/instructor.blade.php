@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="mx-auto p-6">
-        <div class="bg-white shadow-xl rounded-xl p-8 border border-gray-300">
+    <div class="mx-auto p-6 space-y-6">
+        <div class="bg-white shadow-md rounded-xl p-8 border border-gray-300">
             <h2 class="text-3xl font-semibold text-start text-gray-900 mb-6">Instructor Registration</h2>
             <form action="{{ route('instructors.store') }}" method="POST" class="space-y-6">
                 @csrf
@@ -35,5 +35,7 @@
                 </div>
             </form>
         </div>
+
+        <x-dynamic-table :columns="['name', 'email']" :rows="$instructors" />
     </div>
 @endsection
