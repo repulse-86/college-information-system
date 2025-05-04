@@ -6,9 +6,7 @@ use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [InstructorController::class, 'index']);
 
 Route::resource('/instructors', InstructorController::class)->only(['index', 'store']);
 Route::resource('/departments', DepartmentController::class)->only(['index', 'store']);
