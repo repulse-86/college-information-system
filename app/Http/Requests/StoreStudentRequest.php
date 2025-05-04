@@ -23,7 +23,6 @@ class StoreStudentRequest extends FormRequest
     {
         return [
             'department_id' => 'required|integer|exists:departments,departmentID',
-            'course_id' => 'required|integer|exists:courses,courseID',
             'name' => 'required|string|max:255',
         ];
     }

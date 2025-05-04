@@ -17,21 +17,12 @@ class StudentController extends Controller
      */
     public function index(): View
     {
-        $students = Student::all();
-
-        $studentsMapped = $students->map(function ($student) {
-            return [
-                'studentID' => $student->studentID,
-                'name' => $student->name,
-                'department' => $student->department->name ?? 'N/A',
-                'course' => $student->course->title ?? 'N/A',
-            ];
-        })->toArray();
+        $students = Student::with('department')->get();
 
         return view('student', [
             'courses' => Course::all(),
             'departments' => Department::all(),
-            'students' => $studentsMapped,
+            'students' => $students,
         ]);
     }
 
@@ -43,6 +34,28 @@ class StudentController extends Controller
         Student::create($request->validated());
 
         return redirect()->route('students.index');
+    }
+
+    public function assignWithCourse(string $studentID): View
+    {
+        $student = Student::findOrFail($studentID);
+        $studentCourses = $student->courses;
+        $courses = Course::all();
+
+        return view('student_courses', compact('courses', 'student', 'studentCourses'));
+    }
+
+    public function assignWithCourseStore(Request $request, string $studentID): RedirectResponse
+    {
+        $student = Student::findOrFail($studentID);
+
+        $request->validate([
+            'course_id' => 'required|exists:courses,courseID',
+        ]);
+
+        $student->courses()->attach($request->course_id);
+
+        return redirect()->route('students.assign.course', $student->studentID);
     }
 
     /**
