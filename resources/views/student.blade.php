@@ -32,22 +32,6 @@
                             <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
                         @enderror
                     </div>
-
-                    <div>
-                        <label for="course_id" class="block text-lg font-medium text-gray-700">Course</label>
-                        <select name="course_id" id="course_id"
-                            class="block w-full h-12 px-4 rounded-lg border border-gray-300 bg-gray-50 text-gray-800 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-300">
-                            <option value="">Select Course</option>
-                            @foreach ($courses as $course)
-                                <option value="{{ $course->courseID }}" @selected(old('course_id') == $course->courseID)>
-                                    {{ $course->title }}
-                                </option>
-                            @endforeach
-                        </select>
-                        @error('course_id')
-                            <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
                 </div>
 
                 <div>
@@ -59,6 +43,36 @@
             </form>
         </div>
 
-        <x-dynamic-table :columns="['studentID','name', 'department', 'course']" :rows="$students" />
+        @php
+        $columns = ['studentID','name', 'department'];
+        @endphp
+
+        <div class="overflow-x-auto shadow-md rounded-lg border border-gray-300 bg-white">
+            <table class="min-w-full text-left text-sm text-gray-500">
+                <thead class="">
+                    <tr>
+                        @foreach($columns as $column)
+                            <th scope="col" class="px-6 py-3 text-lg font-medium text-gray-700">
+                                {{ strToUpper($column) }}
+                            </th>
+                        @endforeach
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($students as $student)
+                        <tr class="border-b">
+                            <td class="px-6 py-4">{{ $student->studentID }}</td>
+                            <td class="px-6 py-4">
+                                <a href="{{ route('students.assign.course', $student->studentID) }}" class="text-blue-600 hover:underline">
+                                    {{ $student->name }}
+                                </a>
+                            </td>
+                            <td class="px-6 py-4">{{ $student->department->name }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+
     </div>
 @endsection
