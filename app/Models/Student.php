@@ -11,6 +11,8 @@ class Student extends Model
     /** @use HasFactory<\Database\Factories\StudentFactory> */
     use HasFactory;
 
+    protected $primaryKey = 'studentID';
+
     protected $fillable = [
         'department_id',
         'course_id',
@@ -22,8 +24,8 @@ class Student extends Model
         return $this->belongsTo(Department::class, 'department_id', 'departmentID');
     }
 
-    public function course(): BelongsTo
+    public function courses()
     {
-        return $this->belongsTo(Course::class, 'course_id', 'courseID');
+        return $this->belongsToMany(Course::class, 'course_student', 'student_id', 'course_id');
     }
 }

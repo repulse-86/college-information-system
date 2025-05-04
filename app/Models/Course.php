@@ -12,6 +12,10 @@ class Course extends Model
     /** @use HasFactory<\Database\Factories\CourseFactory> */
     use HasFactory;
 
+    protected $primaryKey = 'courseID';
+    public $incrementing = true;
+    protected $keyType = 'int';
+
     protected $fillable = [
         'instructor_id',
         'department_id',
@@ -29,8 +33,8 @@ class Course extends Model
         return $this->belongsTo(Department::class, 'department_id', 'departmentID');
     }
 
-    public function students(): HasMany
+    public function students()
     {
-        return $this->hasMany(Student::class, 'course_id', 'courseID');
+        return $this->belongsToMany(Student::class, 'course_student', 'course_id', 'student_id');
     }
 }
