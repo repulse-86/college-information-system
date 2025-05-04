@@ -18,6 +18,7 @@ class Navbar extends Component
             ['route' => 'instructors.index', 'label' => 'Instructors'],
             ['route' => 'departments.index', 'label' => 'Departments'],
             ['route' => 'courses.index', 'label' => 'Courses'],
+            ['route' => 'students.index', 'label' => 'Students'],
         ];
     }
 
