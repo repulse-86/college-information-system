@@ -21,6 +21,7 @@ class CourseController extends Controller
 
         $coursesMapped = $courses->map(function ($course) {
             return [
+                'courseID' => $course->courseID,
                 'title' => $course->title,
                 'credit' => $course->credit,
                 'department' => $course->department->name ?? 'N/A',

@@ -36,6 +36,6 @@
             </form>
         </div>
 
-        <x-dynamic-table :columns="['name', 'email']" :rows="$instructors" />
+        <x-dynamic-table :columns="['instructorID', 'name', 'email']" :rows="$instructors" />
     </div>
 @endsection

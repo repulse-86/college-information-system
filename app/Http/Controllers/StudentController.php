@@ -21,6 +21,7 @@ class StudentController extends Controller
 
         $studentsMapped = $students->map(function ($student) {
             return [
+                'studentID' => $student->studentID,
                 'name' => $student->name,
                 'department' => $student->department->name ?? 'N/A',
                 'course' => $student->course->title ?? 'N/A',
