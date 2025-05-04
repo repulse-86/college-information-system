@@ -17,10 +17,22 @@ class CourseController extends Controller
      */
     public function index(): View
     {
-        $instructors = Instructor::all();
-        $departments = Department::all();
+        $courses = Course::with(['department', 'instructor'])->get();
 
-        return view('course', compact('instructors', 'departments'));
+        $coursesMapped = $courses->map(function ($course) {
+            return [
+                'title' => $course->title,
+                'credit' => $course->credit,
+                'department' => $course->department->name ?? 'N/A',
+                'instructor' => $course->instructor->name ?? 'N/A',
+            ];
+        })->toArray();
+
+        return view('course', [
+            'courses' => $coursesMapped,
+            'departments' => Department::all(),
+            'instructors' => Instructor::all(),
+        ]);
     }
 
     /**
