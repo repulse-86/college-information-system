@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Student;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,7 +20,14 @@ class StudentFactory extends Factory
         return [
             'name' => $this->faker->name(),
             'department_id' => \App\Models\Department::inRandomOrder()->first()->departmentID,
-            'course_id' => \App\Models\Course::inRandomOrder()->first()->courseID,
         ];
     }
+
+    public function withCourses(int $count = 1)
+   {
+       return $this->afterCreating(function (Student $student) use ($count) {
+           $courses = \App\Models\Course::inRandomOrder()->take($count)->pluck('courseID');
+           $student->courses()->attach($courses);
+       });
+   }
 }

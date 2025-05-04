@@ -21,7 +21,7 @@ class CourseFactory extends Factory
         return [
             'department_id' => Department::inRandomOrder()->first()->departmentID,
             'instructor_id' => Instructor::inRandomOrder()->first()->instructorID,
-            'title' => $this->faker->word,
+            'title' => $this->faker->unique()->word,
             'credit' => $this->faker->numberBetween(1, 4),
         ];
     }
