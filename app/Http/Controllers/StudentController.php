@@ -17,9 +17,20 @@ class StudentController extends Controller
      */
     public function index(): View
     {
+        $students = Student::all();
+
+        $studentsMapped = $students->map(function ($student) {
+            return [
+                'name' => $student->name,
+                'department' => $student->department->name ?? 'N/A',
+                'course' => $student->course->title ?? 'N/A',
+            ];
+        })->toArray();
+
         return view('student', [
             'courses' => Course::all(),
             'departments' => Department::all(),
+            'students' => $studentsMapped,
         ]);
     }
 
