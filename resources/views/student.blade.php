@@ -58,5 +58,7 @@
                 </div>
             </form>
         </div>
+
+        <x-dynamic-table :columns="['name', 'department', 'course']" :rows="$students" />
     </div>
 @endsection
